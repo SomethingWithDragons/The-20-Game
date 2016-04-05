@@ -1,0 +1,41 @@
+// Originally a script for side scrollers
+// Needs adjustment for a top-down environment
+
+using UnityEngine;
+using System.Collections;
+
+public class RedSquareController : MonoBehaviour {
+	
+	public float maxSpeed = 50f;
+	bool facingRight = true;
+	
+	
+	// Use this for initialization
+	void Start () {
+		
+	}
+	
+	// Update is called once per frame
+	void FixedUpdate () {
+		
+		float move = Input.GetAxis ("Horizontal");
+		rigidbody2D.velocity = new Vector2 (move*maxSpeed, 0f);
+		
+		if (move > 0 && !facingRight)
+			Flip ();
+		else if (move < 0 && facingRight)
+			Flip ();
+		
+	}
+	
+	
+	
+	void Flip ()
+	{
+		facingRight = !facingRight; //flip true--> false or false--> true
+		Vector3 theScale2 = transform.localScale;
+		theScale2.x *= -1;
+		transform.localScale = theScale2;
+		
+	}
+}
